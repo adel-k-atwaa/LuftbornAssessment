@@ -3,7 +3,7 @@
         <div @click="hidePopUp" class="h-full w-full absolute top-0 left-0 z-10"></div>
         <div class="w-96 h-54 bg-gray rounded-2xl mx-auto my-auto flex flex-col justify-start z-20">
             <div class="w-full h-1/2 p-4 bg-purple rounded-t-2xl flex items-center justify-center">
-               <img class="w-60" src="~/assets/NOJOMlogoArtboard 1.png" alt="">
+               <!-- <img class="w-60" src="~/assets/NOJOMlogoArtboard 1.png" alt=""> -->
             </div>
             <div class=" p-4">
                 <div class="w-full text-center text-xl">

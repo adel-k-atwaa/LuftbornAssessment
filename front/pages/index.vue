@@ -7,7 +7,6 @@
                   <div class="mr-96 page">
                       <p class="text-6xl sm:text-7xl text-white font-extrabold">Sign-in to</p>
                       <NuxtLink to='/' class=" z-30 h-20 w-32">
-                        <!-- <img class="h-20" src="~/assets/NOJOMlogoArtboard 1.png" alt=""> -->
                         <p class="text-6xl sm:text-7xl text-white font-extrabold" v-html="to"></p>
                       </NuxtLink>
                       <div class="flex flex-col mt-8 items-center sm:items-center">
