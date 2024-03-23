@@ -42,4 +42,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    function scopeFindByEmail($query,$email){
+        return $query->where('email',$email);
+    }
 }
