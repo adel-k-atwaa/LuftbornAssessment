@@ -19,6 +19,8 @@ class SendMail implements ShouldQueue
     private Collection $users;
     private Mailable $email;
 
+    public $queue = "mail";
+
     /**
      * Create a new job instance.
      *
@@ -27,7 +29,7 @@ class SendMail implements ShouldQueue
     public function __construct(Collection $users)
     {
         $this->users = $users;
-        //TODO should be changed to be implemented by factory method design pattern
+        //TODO should be changed to be implemented by factory design pattern
         $this->email = new SimpleMail();
     }
 
