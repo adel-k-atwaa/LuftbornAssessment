@@ -3,6 +3,7 @@
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 return new class extends Migration
 {
@@ -14,11 +15,19 @@ return new class extends Migration
     public function up()
     {
         // DB::insert("insert into users (name,email,password) values()",[])
-        User::create([
+        $user = User::create([
             'name' => "adel kamal",
             'password' => Hash::make("test12345"),
             'email' => "adelkamal911@gmail.com"
         ]);
+        $user->givePermissionTo(Permission::all());
+
+        $user = User::create([
+            'name' => "adel kamal 2",
+            'password' => Hash::make("test12345"),
+            'email' => "adelkamal922@gmail.com"
+        ]);
+        $user->givePermissionTo(Permission::all());
     }
 
     /**
