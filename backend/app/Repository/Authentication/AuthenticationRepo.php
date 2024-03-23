@@ -13,7 +13,7 @@ class AuthenticationRepo implements IAuthenticationRepo{
         if(!$user || !Hash::check($request->password,$user->password)){
             throw new UnauthorizedHttpException("Invalid username or password");
         }
-        return $user->createToken($user->name.'-AuthToken')->plainTextToken;
+        return $user->createToken($user->name.'-AuthToken');
     }
 
     function logout(){

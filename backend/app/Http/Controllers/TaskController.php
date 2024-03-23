@@ -37,7 +37,7 @@ class TaskController extends Controller
     }
 
     function destroy($id){
-        $task = $this->taskRepo->delete($id);
-        return response()->json($task,200);
+        $this->taskRepo->delete($id);
+        return response()->json([],200);
     }
 }

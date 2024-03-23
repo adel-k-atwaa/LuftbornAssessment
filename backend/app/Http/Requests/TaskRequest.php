@@ -26,7 +26,8 @@ class TaskRequest extends FormRequest
     {
         return [
             'name' => ['required','string'],
-            'details' => ['present','nullable']
+            'details' => ['present','nullable'],
+            'completed_flag' => ['required','boolean']
         ];
     }
 }

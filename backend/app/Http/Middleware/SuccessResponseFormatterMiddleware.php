@@ -19,11 +19,12 @@ class SuccessResponseFormatterMiddleware
     {
         $response= $next($request);
         if($response->getStatusCode() == 200){
-            // dd($response);
             $data=$response->getData();
-            $data->code = 200;
-            $data->message = "Success";
-            $response->setData($data);
+            if(is_object($data)){
+                $data->code = 200;
+                $data->message = "Success";
+                $response->setData($data);
+            }
         }
         return $response;
     }

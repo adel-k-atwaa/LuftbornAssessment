@@ -17,11 +17,14 @@ class AuthController extends Controller
     function login(LoginRequest $loginRequest){
         $token = $this->authenticationRepo->authentecate($loginRequest);
         return response()->json([
-            'access_token' => $token
+            'name' => $token->accessToken->tokenable->name,
+            'access_token' => $token->plainTextToken,
+            'expires_at' => $token->accessToken->expires_at
         ],200);
     }
 
     function logout(){
-
+        $this->authenticationRepo->logout();
+        return response()->json(null,200);
     }
 }
