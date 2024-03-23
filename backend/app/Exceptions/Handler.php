@@ -60,7 +60,7 @@ class Handler extends ExceptionHandler
    {
        if ($request->is("api/*")) {
             if($exception instanceof HttpException){
-                return response()->json(['code' => $exception->getStatusCode(),'messgae' => $exception->getMessage()]);
+                return response()->json(['code' => $exception->getStatusCode(),'messgae' => $exception->getMessage()],$exception->getStatusCode());
             }
             return response()->json(['code' => 500 , "message" => $exception->getMessage()],500);
        }
