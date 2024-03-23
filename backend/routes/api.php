@@ -17,7 +17,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->group(function ($router){
-    $router->resource('/task',TaskController::class);
+    // $router->resource('/task',TaskController::class);
+    $router->post('/task',[TaskController::class,"store"]);
+    $router->get('/task',[TaskController::class,"index"]);
+    $router->get('/task/{$id}',[TaskController::class,"show"]);
+    $router->put('/task/{$id}',[TaskController::class,"update"]);
+    $router->delete('/task/{$id}',[TaskController::class,"destroy"]);
+
+
     $router->get('/logout',[AuthController::class,'logout']);
 });
 Route::post('login',[AuthController::class,'login']);
