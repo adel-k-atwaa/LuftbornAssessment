@@ -16,7 +16,7 @@ class TaskRepo implements ITaskRepo{
 
     function findAll()
     {
-        return Task::paginate(10);
+        return Task::paginate(10)->withQueryString();
     }
     function delete(int $id){
         return $this->findById($id)->delete();
