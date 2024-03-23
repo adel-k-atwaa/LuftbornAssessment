@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -47,4 +48,22 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    /**
+    * Render an exception into an HTTP response.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \Throwable  $exception
+    * @return \Illuminate\Http\Response
+    */
+   public function render($request, Throwable $exception)
+   {
+       if ($request->is("api/*")) {
+            if($exception instanceof HttpException){
+                return response()->json(['code' => $exception->getStatusCode(),'messgae' => $exception->getMessage()]);
+            }
+            return response()->json(['code' => 500 , "message" => $exception->getMessage()],500);
+       }
+       return parent::render($request, $exception);
+   }
 }
