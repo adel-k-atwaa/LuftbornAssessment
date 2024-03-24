@@ -49,10 +49,20 @@
               {headers: {'content-type': 'application/x-www-form-urlencoded'}})
               .then((res)=>{
                   if(res.status == 200){
-                      sessionStorage.setItem('access_token', res.data.access_token)
-                      sessionStorage.setItem('name', res.data.name)
-                      sessionStorage.setItem('expires_at', res.data.name)
-                      this.$router.push('/Task')
+                    this.$store.commit('setAccessToken', res.data.access_token)
+                    this.$store.commit('setName', res.data.name)
+                    this.$store.commit('setExpires', res.data.expires_at)
+
+                    // console.log(this.$store)
+                    // console.log(this.$store.state.getAccessToken())
+                    // this.$store.data.commit('setAccessToken', res.data.access_token)
+                    // this.$store.data.commit('setName', res.data.name)
+                    // this.$store.data.commit('setExpires', res.data.expires_at)
+                    // console.log(this.$store.data)
+                    // this.$store.access_token = res.data.access_token
+                    // this.$store.name =res.data.name
+                    // this.$store.expires =res.data.expires_at
+                    this.$router.push('/Task')
                   }else{
                       // login failed
 
