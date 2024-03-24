@@ -24,6 +24,7 @@ class TaskRepo implements ITaskRepo{
 
     function update(int $id,TaskRequest $request){
         $task = $this->findById($id);
-        return $task->update($request->validated());
+        $task->update($request->validated());
+        return $task->fresh();
     }
 }
