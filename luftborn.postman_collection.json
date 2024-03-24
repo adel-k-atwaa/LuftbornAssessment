@@ -73,7 +73,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "12|Lpz37Sc3EWP3nSN7SRzlSyc0AWpRHcQAS9AjKBxl51658c10",
+							"value": "55|BURDrhn8qAg05W1c5L7toa1L4ms8EBz4zW8BLnFh6b1ece90",
 							"type": "string"
 						}
 					]
@@ -82,7 +82,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"task 1\",\r\n    \"details\":\"\"\r\n}",
+					"raw": "{\r\n    \"name\": \"cleam the room\",\r\n    \"details\":\"start by bed, floor them walls \",\r\n    \"completed_flag\": false\r\n\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -200,7 +200,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"task 1\",\r\n    \"details\":\"\",\r\n    \"completed_flag\": false\r\n}",
+					"raw": "{\r\n    \"name\": \"clean the room\",\r\n    \"details\": \"start by bed, floor then walls\",\r\n    \"completed_flag\": false,\r\n    \"user_id\": 1,\r\n    \"id\": 31\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -208,7 +208,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://luftborn.loc/api/task/12",
+					"raw": "http://luftborn.loc/api/task/31",
 					"protocol": "http",
 					"host": [
 						"luftborn",
@@ -217,7 +217,7 @@
 					"path": [
 						"api",
 						"task",
-						"12"
+						"31"
 					]
 				}
 			},
