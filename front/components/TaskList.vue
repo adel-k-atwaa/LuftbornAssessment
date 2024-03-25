@@ -1,6 +1,6 @@
 <template>
   <div class="w-full mt-5">
-    <div v-for="task in tasks" :key="task.id" class="flex mt-3 mb-3 justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:bg-gray">
+    <div v-for="task in tasks" :key="task.id" class="flex mt-3 mb-3 justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:bg-gray hover:translate-x-5 transition duration-300 ease-in-out mr-10">
       <div class="inline-flex items-center space-x-2">
         <div class="mr-6 cursor-pointer" v-if="task.completed_flag" @click="taskUpdate(task)">
             <svg xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-slate-500">

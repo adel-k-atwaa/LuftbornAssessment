@@ -26,17 +26,21 @@
 </template>
 
 <script>
-
+import { useUserStore } from '@/store/userStore'
 export default{
     props:{
         Slider:Array,
     },
+    async setup() {
+        const userStore = useUserStore()
+        return {
+            name:userStore.getName,
+            userStore:userStore
+        }
+    },
     data(){
         return{
           appName:"",
-          screenWidth:window.screen.width,
-          name:sessionStorage.getItem('name'),
-          img:sessionStorage.getItem('img'),
           defaultUserImg:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDPv1yj_NPcC5rtnynX4YY_EBnDqVoYlCv6NT_sqUjit93iOYaPO5PEs7xja85-xckWEI&usqp=CAU',
        }
     },

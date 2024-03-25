@@ -27,12 +27,14 @@
   </div>
   </template>
   <script>
-  import axios from 'axios'
+  import { useUserStore } from '@/store/userStore'
 
   export default {
       data(){
           return{
               to: "Task Manager",
+              userStore: useUserStore(),
+              config: useRuntimeConfig(),
               profile:{
                   email:'',
                   password:'',
@@ -44,24 +46,13 @@
               const formData = new URLSearchParams()
               formData.append("email",this.profile.email)
               formData.append("password",this.profile.password)
-              let user_name=this.profile.username
-              await axios.post(`${process.env.base_url}login`,formData,
+              await this.$api.post(`${this.config.public.BASE_URL}login`,formData,
               {headers: {'content-type': 'application/x-www-form-urlencoded'}})
               .then((res)=>{
                   if(res.status == 200){
-                    this.$store.commit('setAccessToken', res.data.access_token)
-                    this.$store.commit('setName', res.data.name)
-                    this.$store.commit('setExpires', res.data.expires_at)
-
-                    // console.log(this.$store)
-                    // console.log(this.$store.state.getAccessToken())
-                    // this.$store.data.commit('setAccessToken', res.data.access_token)
-                    // this.$store.data.commit('setName', res.data.name)
-                    // this.$store.data.commit('setExpires', res.data.expires_at)
-                    // console.log(this.$store.data)
-                    // this.$store.access_token = res.data.access_token
-                    // this.$store.name =res.data.name
-                    // this.$store.expires =res.data.expires_at
+                    this.userStore.setAccessToken(res.data.access_token)
+                    this.userStore.setName(res.data.name)
+                    this.userStore.setExpires(res.data.expires_at)
                     this.$router.push('/Task')
                   }else{
                       // login failed

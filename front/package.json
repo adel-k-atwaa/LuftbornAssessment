@@ -1,33 +1,29 @@
 {
-  "name": "task-manager",
-  "version": "1.0.0",
+  "name": "frontend",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "nuxt --openssl-legacy-provider",
-    "build": "nuxt build --openssl-legacy-provider",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@cloudgeek/playcore-hls": "^0.1.7",
-    "@cloudgeek/vue3-video-player": "^0.3.10",
-    "@nuxtjs/axios": "^5.13.6",
-    "@nuxtjs/moment": "^1.6.1",
-    "axios": "^0.27.2",
-    "core-js": "^3.19.3",
-    "cross-env": "^7.0.3",
-    "install": "^0.13.0",
-    "moment": "^2.29.4",
-    "nuxt": "^2.15.8",
-    "vue": "^2.6.14",
-    "vue-server-renderer": "^2.6.14",
-    "vue-template-compiler": "^2.6.14",
-    "vue-video-player": "^5.0.2",
-    "vue-videojs7": "^1.0.2",
-    "webpack": "^4.46.0"
+    "@nuxtjs/tailwindcss": "^6.11.4",
+    "@pinia/nuxt": "^0.5.1",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "nuxt": "^3.11.1",
+    "nuxt3-vuex-module": "^1.1.0",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^4.2.1",
-    "postcss": "^8.4.4"
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.1"
   }
 }

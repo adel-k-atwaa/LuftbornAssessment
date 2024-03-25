@@ -1,6 +1,6 @@
 
 <template>
-    <div :style='`width:${screenWidth}`' class=" back relative">
+    <div class=" back relative w-full">
         <TopNav @endUser="logOut()"/>
         <!-- ------------------------------------------------------------------------------- -->
         <!-- under nav -->
@@ -16,82 +16,74 @@
 
                   </div>
               </div>
-              <div class="flex overflow-x-auto mt-2 ml-6 min-h-screen hover:translate-x-10 transition duration-300 ease-in-out">
+              <div class="flex overflow-x-auto mt-2 ml-6 min-h-screen">
                   <TaskList :tasks="tasks"
                     @update="updateTask"
                     @delete="deleteTask"
                   />
               </div>
-
             </div>
         </div>
-        <div :style='`width:${screenWidth}`'>
+        <div class="w-full">
             <Footer/>
         </div>
     </div>
 </template>
-
-
-
 <script>
-import axios from 'axios'
+import { useUserStore } from '@/store/userStore'
 export default {
     // middleware: 'guest',
-    data(){
-        return{
-            // tasks:[],
-            screenWidth:window.screen.width,
-            // name:sessionStorage.getItem('name'),
-            // img:sessionStorage.getItem('img'),
-            defaultUserImg:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDPv1yj_NPcC5rtnynX4YY_EBnDqVoYlCv6NT_sqUjit93iOYaPO5PEs7xja85-xckWEI&usqp=CAU',
-            // token:sessionStorage.getItem("access_token"),
-            // expires:sessionStorage.getItem('expires_at'),
+    async setup() {
+        const app = useNuxtApp()
+        const userStore = useUserStore()
+        let token = userStore.getAccessToken
+        let config= useRuntimeConfig()
+        let response = await app.$api.get(`${config.public.BASE_URL}task`,{
+            headers: {
+                'Authorization': 'Bearer '+ token
+            }
+        }).catch(e=>{
+            console.log(e)
+            console.log(token)
+        })
+        const { next_page_url: nextPage, prev_page_url: previousPage, data: tasks } = response.data;
+        return {
+            nextPage: nextPage,
+            userStore:userStore,
+            previousPage:previousPage,
+            data:tasks,
+            config:config,
+            token:token,
         }
     },
-    beforeMount() {
-        // this.getTasks()
+    beforeMount(){
+        this.tasks = this.data
     },
-    async asyncData({ app, params, store }) {
-      let token = store.state.access_token
-      let expires = store.state.expires
-      let name = store.state.name
-      let tasks = await app.$axios.get(`${process.env.base_url}task`,{
-          headers: {
-              'Authorization': 'Bearer '+ token
-          }
-      })
-      let nextPage =tasks.data.next_page_url
-      let previousPage = tasks.data.prev_page_url
-      tasks = tasks.data.data
-      return {
-        token:token,
-        expires:expires,
-        tasks:tasks,
-        name:name,
-        nextPage:nextPage,
-        previousPage:previousPage
-      }
+    data(){
+        return{
+            tasks:[],
+            defaultUserImg:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDPv1yj_NPcC5rtnynX4YY_EBnDqVoYlCv6NT_sqUjit93iOYaPO5PEs7xja85-xckWEI&usqp=CAU',
+        }
     },
     methods:{
         async logOut(){
-            await axios.get(`${process.env.base_url}logout`,{
+            await this.$api.get(`${this.config.public.BASE_URL}logout`,{
                 headers: {
                     'Authorization': 'Bearer '+this.token
                 }
             })
             .then( (res) =>{
-              this.$store.commit("delete")
+              this.userStore.delete
               this.$router.push('/')
             })
         },
-        async getTasks(url){
-          await axios.get(url,{
+        async getTasks(){
+          await this.$api.get(`${this.config.public.BASE_URL}task`,{
               headers: {
                   'Authorization': 'Bearer '+this.token
               }
           })
           .then( (res) =>{
-            console.log(res.data.data);
             this.tasks = res.data.data;
             this.nextPage = res.data.next_page_url
             this.previousPage = res.data.prev_page_url
@@ -100,19 +92,24 @@ export default {
           });
         },
         async updateTask(task){
-          await axios.put(`${process.env.base_url}task/${task.id}`,task,{
+          await this.$api.put(`${this.config.public.BASE_URL}task/${task.id}`,task,{
               headers: {
                   'Authorization': 'Bearer '+this.token
               }
           })
           .then( (res) =>{
-           this.getTasks()
+            this.tasks = this.tasks.filter(element=>{
+                if(element.id == task.id){
+                    element = task
+                }
+                return true;
+            })
           }).catch(e=>{
 
           });
         },
         async deleteTask(task){
-          await axios.delete(`${process.env.base_url}task/${task.id}`,{
+          await this.$api.delete(`${this.config.public.BASE_URL}task/${task.id}`,{
               headers: {
                   'Authorization': 'Bearer '+this.token
               }
